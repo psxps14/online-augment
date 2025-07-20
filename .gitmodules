@@ -1,0 +1,3 @@
+[submodule "torch_conv_kan"]
+	path = torch_conv_kan
+	url = https://github.com/psxps14/torch-conv-kan.git
