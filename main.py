@@ -92,6 +92,9 @@ parser.add_argument('--inner_num', default=None, type=int, help='number of updat
 parser.add_argument('--inner_type', default=None, type=str, help='aug/both, the type of inner update')
 args = parser.parse_args()
 
+import sys
+sys.path.append('./torch_conv_kan')
+
 def main():
     # assert not (args.horovod and args.only_eval), 'can not use horovod when evaluation mode is enabled.'
     # assert (args.only_eval and args.save) or not args.only_eval, 'checkpoint path not provided in evaluation mode.'
