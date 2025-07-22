@@ -25,7 +25,10 @@ def get_model(config, num_class=10, bn_types=None, data_parallel=True):
     name = config.model
     print('model name: {}'.format(name))
     print('bn_types: {}'.format(bn_types))
-    if name == 'resnet50':
+    if name == 'kanresnet':
+        model = ResNetMultiBN(dataset='imagenet', depth=50, num_classes=num_class,
+                                  bn_types=bn_types, bottleneck=True)
+    elif name == 'resnet50':
         if bn_types is None:
             model = ResNet(dataset='imagenet', depth=50, num_classes=num_class, bottleneck=True)
         else:
