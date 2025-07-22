@@ -20,13 +20,14 @@ from models.wideresnet_multibn import WideResNetMultiBN
 from models.shakeshake.shake_resnet_multibn import ShakeResNetMultiBN
 from models.pyramidnet_multibn import PyramidNetMultiBN
 from models.resnet_multibin import ResNetMultiBN
+from models.kanresnet_multibn import KANResNetMultiBN
 
 def get_model(config, num_class=10, bn_types=None, data_parallel=True):
     name = config.model
     print('model name: {}'.format(name))
     print('bn_types: {}'.format(bn_types))
     if name == 'kanresnet':
-        model = ResNetMultiBN(dataset='imagenet', depth=50, num_classes=num_class,
+        model = KANResNetMultiBN(dataset='imagenet', depth=50, num_classes=num_class,
                                   bn_types=bn_types, bottleneck=True)
     elif name == 'resnet50':
         if bn_types is None:
