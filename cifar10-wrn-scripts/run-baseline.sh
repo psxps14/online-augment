@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-CUDA_VISIBLE_DEVICES=4 python main.py  \
+#CUDA_VISIBLE_DEVICES=4
+                        python -u main.py  \
                         --data_dir ~/data \
                         --exp_dir ~/exp \
                         --dataset cifar10 \
-                        --model wresnet28_10 \
+                        --model reskanet \
                         --batch_size 128 \
                         --epochs 200 \
                         --lr 0.1 \
