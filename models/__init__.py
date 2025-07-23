@@ -27,8 +27,8 @@ def get_model(config, num_class=10, bn_types=None, data_parallel=True):
     print('model name: {}'.format(name))
     print('bn_types: {}'.format(bn_types))
     if name == 'kanresnet':
-        model = KANResNetMultiBN(dataset='imagenet', depth=50, num_classes=num_class,
-                                  bn_types=bn_types, bottleneck=True)
+        model = KANResNetMultiBN(dataset='cifar10', depth=14, num_classes=num_class,
+                                  bn_types=bn_types, bottleneck=False)
     elif name == 'resnet50':
         if bn_types is None:
             model = ResNet(dataset='imagenet', depth=50, num_classes=num_class, bottleneck=True)
