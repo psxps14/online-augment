@@ -231,6 +231,6 @@ def validate_epoch(val_loader, model, config):
                    i, len(val_loader), batch_time=batch_time, loss=losses,
                    top1=top1))
 
-    print(' * Acc {top1.avg:.3f}% '.format(top1=top1))
+    print(' * Validation Acc {top1.avg:.3f}% '.format(top1=top1))
 
     return top1.avg
