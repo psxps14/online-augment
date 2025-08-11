@@ -29,24 +29,24 @@ def get_model(config, num_class=10, bn_types=None, data_parallel=True):
     print('bn_types: {}'.format(bn_types))
     if name == 'kan':
         if bn_types is None:
-            model = get_kan_model(num_classes=10, input_channels=3)
+            model = get_kan_model(num_classes=num_class, input_channels=3)
         else:
-            model = get_kanMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
+            model = get_kanMBN_model(num_classes=num_class, input_channels=3, bn_types=bn_types)
     elif name == '8kan':
         if bn_types is None:
-            model = get_8kan_model(num_classes=10, input_channels=3)
+            model = get_8kan_model(num_classes=num_class, input_channels=3)
         else:
-            model = get_8kanMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
+            model = get_8kanMBN_model(num_classes=num_class, input_channels=3, bn_types=bn_types)
     elif name == 'kagn':
         if bn_types is None:
-            model = get_kagn_model(num_classes=10, input_channels=3)
+            model = get_kagn_model(num_classes=num_class, input_channels=3)
         else:
-            model = get_kagnMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
+            model = get_kagnMBN_model(num_classes=num_class, input_channels=3, bn_types=bn_types)
     elif name == '8kagn':
         if bn_types is None:
-            model = get_8kagn_model(num_classes=10, input_channels=3)
+            model = get_8kagn_model(num_classes=num_class, input_channels=3)
         else:
-            model = get_8kagnMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
+            model = get_8kagnMBN_model(num_classes=num_class, input_channels=3, bn_types=bn_types)
     elif name == 'resnet50':
         if bn_types is None:
             model = ResNet(dataset='imagenet', depth=50, num_classes=num_class, bottleneck=True)
