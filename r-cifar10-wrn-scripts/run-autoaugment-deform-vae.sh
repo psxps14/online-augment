@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-CUDA_VISIBLE_DEVICES=4 python main.py  \
+#CUDA_VISIBLE_DEVICES=4
+                        python -u main.py  \
                         --data_dir ~/data \
                         --exp_dir ~/exp \
                         --dataset reduced_cifar10 \

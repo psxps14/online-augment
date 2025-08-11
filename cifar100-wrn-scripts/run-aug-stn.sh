@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-CUDA_VISIBLE_DEVICES=6 python main.py  \
+#CUDA_VISIBLE_DEVICES=6
+                        python -u main.py  \
                         --data_dir ~/data \
                         --exp_dir ~/exp \
                         --dataset cifar100 \
