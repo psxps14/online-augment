@@ -61,6 +61,7 @@ def train_and_validate(config):
     start_epoch = 0
     best_test_acc = 0.0
     test_acc = 0.0
+    best_epoch = 0
     if config.resume:
         best_test_acc, test_acc, start_epoch = \
             utils.load_checkpoint(config, model, optimizer)
@@ -103,6 +104,7 @@ def train_and_validate(config):
         is_best = test_acc > best_test_acc
         if is_best:
             best_test_acc = test_acc
+            best_epoch = epoch
 
         utils.save_checkpoint(model,{
             'epoch': epoch + 1,
@@ -119,6 +121,9 @@ def train_and_validate(config):
                 f.write('{:2.2f}\t'.format(per_value))
             f.write('\n')
         print('exp_dir: {}'.format(exp_dir))
+
+    print("max validation accuracy: " + str(best_test_acc))
+    print("max validation epoch: " + str(best_epoch))
 
 
 def train_epoch(trainloader, model, criterion, optimizer, lr_scheduler, epoch, config):
