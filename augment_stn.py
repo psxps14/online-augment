@@ -27,13 +27,20 @@ class Augment(object):
     #     params = utils.add_weight_decay(target_net, config.weight_decay)
     # else:
     #     raise Exception('unknown decay type: {}'.format(config.decay_type))
-    self.target_net_optim = optim.SGD(target_net.parameters(), config.lr,
-                                      momentum=config.momentum,
-                                      weight_decay=config.weight_decay,
-                                      nesterov=True)
-    for group in self.target_net_optim.param_groups:
-        print('target net lr: {}, weight_decay: {}, momentum: {}, nesterov: {}'
-              .format(group['lr'], group['weight_decay'], group['momentum'], group['nesterov']))
+    if config.optimiser == "AdamW":
+        print("using AdamW optimiser")
+        self.target_net_optim = torch.optim.AdamW(
+            target_net.parameters(),
+            lr=0.0009,
+            betas=(0.9, 0.999),
+            weight_decay=5e-6
+        )
+    else:
+        print("using SGD optimiser")
+        self.target_net_optim = optim.SGD(target_net.parameters(), config.lr,
+                            momentum=config.momentum,
+                            weight_decay=config.weight_decay,
+                            nesterov=True)
 
     print('training epochs: {}'.format(config.epochs))
     # lr scheduler

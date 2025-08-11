@@ -37,10 +37,20 @@ def train_and_validate(config):
     #     params = utils.add_weight_decay(model, config.weight_decay)
     # else:
     #     raise Exception('unknown decay type: {}'.format(config.decay_type))
-    optimizer = optim.SGD(model.parameters(), config.lr,
-                          momentum=config.momentum,
-                          weight_decay=config.weight_decay,
-                          nesterov=True)
+    if config.optimiser == "AdamW":
+        print("using AdamW optimiser")
+        optimizer = torch.optim.AdamW(
+            model.parameters(),
+            lr=0.0009,
+            betas=(0.9, 0.999),
+            weight_decay=5e-6
+        )
+    else:
+        print("using SGD optimiser")
+        optimizer = optim.SGD(model.parameters(), config.lr,
+                            momentum=config.momentum,
+                            weight_decay=config.weight_decay,
+                            nesterov=True)
     # lr scheduler
     if config.lr_scheduler == 'cosine':
         lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,

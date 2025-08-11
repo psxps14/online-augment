@@ -90,6 +90,7 @@ parser.add_argument('--decay_type', default=None, type=str, help='no_bn')
 parser.add_argument('--img_res', default=None, type=int, help='image resolution for noise or deformation generator')
 parser.add_argument('--inner_num', default=None, type=int, help='number of updating aug net')
 parser.add_argument('--inner_type', default=None, type=str, help='aug/both, the type of inner update')
+parser.add_argument('--optimiser', default=None, type=str, help='SGD or AdamW')
 args = parser.parse_args()
 
 import sys
