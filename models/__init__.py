@@ -20,15 +20,33 @@ from models.wideresnet_multibn import WideResNetMultiBN
 from models.shakeshake.shake_resnet_multibn import ShakeResNetMultiBN
 from models.pyramidnet_multibn import PyramidNetMultiBN
 from models.resnet_multibin import ResNetMultiBN
-from models.kanresnet_multibn import KANResNetMultiBN
+from torch_conv_kan.mnist_conv import get_kan_model, get_8kan_model, get_kanMBN_model, get_8kanMBN_model
+from torch_conv_kan.mnist_conv import get_kagn_model, get_8kagn_model, get_kagnMBN_model, get_8kagnMBN_model
 
 def get_model(config, num_class=10, bn_types=None, data_parallel=True):
     name = config.model
     print('model name: {}'.format(name))
     print('bn_types: {}'.format(bn_types))
-    if name == 'kanresnet':
-        model = KANResNetMultiBN(dataset='cifar10', depth=14, num_classes=num_class,
-                                  bn_types=bn_types, bottleneck=False)
+    if name == 'kan':
+        if bn_types is None:
+            model = get_kan_model(num_classes=10, input_channels=3)
+        else:
+            model = get_kanMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
+    elif name == '8kan':
+        if bn_types is None:
+            model = get_8kan_model(num_classes=10, input_channels=3)
+        else:
+            model = get_8kanMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
+    elif name == 'kagn':
+        if bn_types is None:
+            model = get_kagn_model(num_classes=10, input_channels=3)
+        else:
+            model = get_kagnMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
+    elif name == '8kagn':
+        if bn_types is None:
+            model = get_8kagn_model(num_classes=10, input_channels=3)
+        else:
+            model = get_8kagnMBN_model(num_classes=10, input_channels=3, bn_types=bn_types)
     elif name == 'resnet50':
         if bn_types is None:
             model = ResNet(dataset='imagenet', depth=50, num_classes=num_class, bottleneck=True)
