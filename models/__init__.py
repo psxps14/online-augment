@@ -22,6 +22,7 @@ from models.pyramidnet_multibn import PyramidNetMultiBN
 from models.resnet_multibin import ResNetMultiBN
 from torch_conv_kan.mnist_conv import get_kan_model, get_8kan_model, get_kanMBN_model, get_8kanMBN_model
 from torch_conv_kan.mnist_conv import get_kagn_model, get_8kagn_model, get_kagnMBN_model, get_8kagnMBN_model
+from torch_conv_kan.kan_models.reskanet import reskagnetbn_18x32p, reskagnetbnMBN_18x32p
 
 def get_model(config, num_class=10, bn_types=None, data_parallel=True):
     name = config.model
@@ -47,6 +48,11 @@ def get_model(config, num_class=10, bn_types=None, data_parallel=True):
             model = get_8kagn_model(num_classes=num_class, input_channels=3)
         else:
             model = get_8kagnMBN_model(num_classes=num_class, input_channels=3, bn_types=bn_types)
+    elif name == 'reskagnet':
+        if bn_types is None:
+            model = reskagnetbn_18x32p(num_classes=num_class, input_channels=3)
+        else:
+            model = reskagnetbnMBN_18x32p(num_classes=num_class, input_channels=3, bn_types=bn_types)
     elif name == 'resnet50':
         if bn_types is None:
             model = ResNet(dataset='imagenet', depth=50, num_classes=num_class, bottleneck=True)
