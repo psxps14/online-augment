@@ -44,6 +44,7 @@ def train_and_validate(config):
     test_acc = 0.0
     best_epoch = 0
     accuracies = []
+    train_accuracies = []
     if config.resume:
         best_test_acc, test_acc, start_epoch = \
             utils.load_checkpoint(config, model.target_net, model.target_net_optim)
@@ -89,6 +90,7 @@ def train_and_validate(config):
             best_epoch = epoch
 
         accuracies.append(test_acc)
+        train_accuracies.append(train_acc)
 
         utils.save_checkpoint(model,{
             'epoch': epoch + 1,
@@ -123,6 +125,9 @@ def train_and_validate(config):
     if (len(abs_changes) >= 99):
             mean_abs_change100 = sum(abs_changes[0:99]) / 99
             print("MAC of first 100 epochs: " + str(mean_abs_change100))
+
+    print("validation accuracies: " + str(accuracies))
+    print("test accuracies: " + str(train_accuracies))
 
 
 # not using implicit gradients from validation data
