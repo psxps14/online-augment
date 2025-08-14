@@ -28,7 +28,10 @@ def train_and_validate(config):
     model = get_model(config, num_class(config.dataset))
 
     # loss function
-    criterion = nn.CrossEntropyLoss().cuda()
+    if config.optimiser == 'AdamW':
+        criterion = nn.CrossEntropyLoss(label_smoothing=0.18237).cuda()
+    else:
+        criterion = nn.CrossEntropyLoss().cuda()
 
     # optimizer
     # if config.decay_type is None:
@@ -41,9 +44,9 @@ def train_and_validate(config):
         print("using AdamW optimiser")
         optimizer = torch.optim.AdamW(
             model.parameters(),
-            lr=0.0009,
+            lr=0.00077954,
             betas=(0.9, 0.999),
-            weight_decay=5e-6
+            weight_decay=0.0000065798
         )
     else:
         print("using SGD optimiser")
@@ -52,7 +55,9 @@ def train_and_validate(config):
                             weight_decay=config.weight_decay,
                             nesterov=True)
     # lr scheduler
-    if config.lr_scheduler == 'cosine':
+    if config.optimiser == 'AdamW':
+        lr_scheduler = torch.optim.lr_scheduler.PolynomialLR(optimizer, total_iters=config.epochs, power=1.12754)
+    elif config.lr_scheduler == 'cosine':
         lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,
                                                                   T_max=float(config.epochs),
                                                                   eta_min=0.)
@@ -119,7 +124,7 @@ def train_and_validate(config):
             best_epoch = epoch
 
         accuracies.append(test_acc)
-        train_accuracies.append(train_acc)
+        train_accuracies.append(round(train_acc, 2))
 
         utils.save_checkpoint(model,{
             'epoch': epoch + 1,

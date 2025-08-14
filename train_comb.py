@@ -90,7 +90,7 @@ def train_and_validate(config):
             best_epoch = epoch
 
         accuracies.append(test_acc)
-        train_accuracies.append(train_acc)
+        train_accuracies.append(round(train_acc, 2))
 
         utils.save_checkpoint(model,{
             'epoch': epoch + 1,

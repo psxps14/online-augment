@@ -15,7 +15,10 @@ class Augment(object):
   def __init__(self, target_net, config):
 
     # loss function
-    self.criterion = nn.CrossEntropyLoss().cuda()
+    if config.optimiser == 'AdamW':
+        self.criterion = nn.CrossEntropyLoss(label_smoothing=0.18237).cuda()
+    else:
+        self.criterion = nn.CrossEntropyLoss().cuda()
 
     # optimizer
     # print('target net lr: {}'.format(config.lr))
@@ -31,9 +34,9 @@ class Augment(object):
         print("using AdamW optimiser")
         self.target_net_optim = torch.optim.AdamW(
             target_net.parameters(),
-            lr=0.0009,
+            lr=0.00077954,
             betas=(0.9, 0.999),
-            weight_decay=5e-6
+            weight_decay=0.0000065798
         )
     else:
         print("using SGD optimiser")
@@ -44,7 +47,9 @@ class Augment(object):
 
     print('training epochs: {}'.format(config.epochs))
     # lr scheduler
-    if config.lr_scheduler == 'cosine':
+    if config.optimiser == 'AdamW':
+        self.lr_scheduler = torch.optim.lr_scheduler.PolynomialLR(self.target_net_optim, total_iters=config.epochs, power=1.12754)
+    elif config.lr_scheduler == 'cosine':
         self.lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(self.target_net_optim,
                                                                        T_max=float(config.epochs),
                                                                        eta_min=0.)

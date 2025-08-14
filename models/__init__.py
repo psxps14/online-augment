@@ -50,9 +50,11 @@ def get_model(config, num_class=10, bn_types=None, data_parallel=True):
             model = get_8kagnMBN_model(num_classes=num_class, input_channels=3, bn_types=bn_types)
     elif name == 'reskagnet':
         if bn_types is None:
-            model = reskagnetbn_18x32p(num_classes=num_class, input_channels=3)
+            model = reskagnetbn_18x32p(num_classes=num_class, input_channels=3,
+                                       dropout_linear=0.14564, width_scale=6)
         else:
-            model = reskagnetbnMBN_18x32p(num_classes=num_class, input_channels=3, bn_types=bn_types)
+            model = reskagnetbnMBN_18x32p(num_classes=num_class, input_channels=3, bn_types=bn_types,
+                                          dropout_linear=0.14564, width_scale=6)
     elif name == 'resnet50':
         if bn_types is None:
             model = ResNet(dataset='imagenet', depth=50, num_classes=num_class, bottleneck=True)
