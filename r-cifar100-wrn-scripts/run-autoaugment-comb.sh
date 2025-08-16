@@ -2,12 +2,13 @@
 
 #CUDA_VISIBLE_DEVICES=7
                         python -u main.py  \
+                        --print_freq 400 \
                         --data_dir ~/data \
                         --exp_dir ~/exp \
                         --dataset reduced_cifar100 \
-                        --model wresnet28_10 \
+                        --model reskagnet \
                         --batch_size 128 \
-                        --epochs 200 \
+                        --epochs 300 \
                         --lr 0.1 \
                         --lr_scheduler cosine \
                         --momentum 0.9 \
@@ -29,4 +30,11 @@
                         --inner_num 4 \
                         --aug_type autoaug_cifar10 \
                         --exp_type astn_pvae \
+                        --deform_vae deform_conv_cifar_v1 \
+                        --z_dim_deform 32 \
+                        --fea_dim_deform 512 \
+                        --adv_weight_deform 0.01 \
+                        --div_weight_deform 1 \
+                        --smooth_weight 10 \
+                        --optimiser AdamW
 
