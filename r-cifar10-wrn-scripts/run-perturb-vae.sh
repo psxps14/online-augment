@@ -2,12 +2,13 @@
 
 #CUDA_VISIBLE_DEVICES=5
                         python -u main.py  \
+                        --print_freq 400 \
                         --data_dir ~/data \
                         --exp_dir ~/exp \
                         --dataset reduced_cifar10 \
-                        --model wresnet28_10 \
+                        --model reskagnet \
                         --batch_size 128 \
-                        --epochs 200 \
+                        --epochs 300 \
                         --lr 0.1 \
                         --lr_scheduler cosine \
                         --momentum 0.9 \
@@ -23,4 +24,5 @@
                         --inner_num 4 \
                         --aug_type basic \
                         --exp_type perturb_vae \
+                        --optimiser AdamW
 
