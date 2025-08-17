@@ -5,7 +5,7 @@
                         --print_freq 400 \
                         --data_dir ~/data \
                         --exp_dir ~/exp \
-                        --dataset cifar100 \
+                        --dataset reduced_cifar100 \
                         --model reskagnet \
                         --batch_size 128 \
                         --epochs 300 \
