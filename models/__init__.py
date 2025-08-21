@@ -23,7 +23,7 @@ from models.resnet_multibin import ResNetMultiBN
 from torch_conv_kan.mnist_conv import get_kan_model, get_8kan_model, get_kanMBN_model, get_8kanMBN_model
 from torch_conv_kan.mnist_conv import get_kagn_model, get_8kagn_model, get_kagnMBN_model, get_8kagnMBN_model
 from torch_conv_kan.kan_models.reskanet import reskagnetbn_18x32p, reskagnetbnMBN_18x32p, reskagnetbn_34x32p, reskagnetbnMBN_34x32p
-from torch_conv_kan.kan_models.densekanet import tiny_densekagnet_bn, tiny_densekagnet_bnMBN
+from torch_conv_kan.kan_models.densekanet import tiny_densekagnet_bn, tiny_densekagnet_bnMBN, densekagnet121bn, densekagnet121bnMBN
 
 def get_model(config, num_class=10, bn_types=None, data_parallel=True):
     name = config.model
@@ -77,6 +77,13 @@ def get_model(config, num_class=10, bn_types=None, data_parallel=True):
                                        dropout=0.14564, dropout_linear=0.05)
         else:
             model = tiny_densekagnet_bnMBN(num_classes=num_class, input_channels=3, bn_types=bn_types,
+                                          dropout=0.14564, dropout_linear=0.05)
+    elif name == 'densekagnet':
+        if bn_types is None:
+            model = densekagnet121bn(num_classes=num_class, input_channels=3,
+                                       dropout=0.14564, dropout_linear=0.05)
+        else:
+            model = densekagnet121bnMBN(num_classes=num_class, input_channels=3, bn_types=bn_types,
                                           dropout=0.14564, dropout_linear=0.05)
     elif name == 'resnet50':
         if bn_types is None:
