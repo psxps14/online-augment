@@ -142,8 +142,8 @@ def train_and_validate(config):
             f.write('\n')
         print('exp_dir: {}'.format(exp_dir))
 
-    print("max validation accuracy: " + str(best_test_acc))
-    print("max validation epoch: " + str(best_epoch))
+    print("max test accuracy: " + str(best_test_acc))
+    print("max test accuracy epoch: " + str(best_epoch))
 
     abs_changes = [abs(accuracies[i] - accuracies[i-1]) for i in range(1, len(accuracies))]
     mean_abs_change = sum(abs_changes) / len(abs_changes)
@@ -153,8 +153,8 @@ def train_and_validate(config):
             mean_abs_change100 = sum(abs_changes[0:99]) / 99
             print("MAC of first 100 epochs: " + str(mean_abs_change100))
 
-    print("validation accuracies: " + str(accuracies))
-    print("test accuracies: " + str(train_accuracies))
+    print("test accuracies: " + str(accuracies))
+    print("train accuracies: " + str(train_accuracies))
 
 
 def train_epoch(trainloader, model, criterion, optimizer, lr_scheduler, epoch, config):
@@ -249,6 +249,6 @@ def validate_epoch(val_loader, model, criterion, config):
                    i, len(val_loader), batch_time=batch_time, loss=losses,
                    top1=top1))
 
-    print(' * Validation Acc {top1.avg:.3f}% '.format(top1=top1))
+    print(' * Test Acc {top1.avg:.3f}% '.format(top1=top1))
 
     return top1.avg
