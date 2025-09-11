@@ -47,4 +47,5 @@ axes[1, 1].legend(loc='lower right')
 axes[1, 1].grid(True)
 
 plt.tight_layout()
+plt.subplots_adjust(wspace=0.08, hspace=0.25)
 plt.show()
