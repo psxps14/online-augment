@@ -6,7 +6,7 @@
                         --data_dir ~/data \
                         --exp_dir ~/exp \
                         --dataset reduced_cifar10 \
-                        --model reskagnet \
+                        --model kagn \
                         --batch_size 128 \
                         --epochs 300 \
                         --lr 0.1 \
